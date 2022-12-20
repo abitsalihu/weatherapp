@@ -1,0 +1,22 @@
+{
+  "name": "weatherapp",
+  "version": "1.0.0",
+  "description": "weatherapp",
+  "main": "script.js",
+  "scripts": {
+    "compile-sass": "node-sass scss/style.scss css/style.css -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abitsalihu/weatherapp.git"
+  },
+  "author": "abi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abitsalihu/weatherapp/issues"
+  },
+  "homepage": "https://github.com/abitsalihu/weatherapp#readme",
+  "devDependencies": {
+    "node-sass": "^8.0.0"
+  }
+}
