@@ -46,11 +46,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: lightblue;
-  background-image: url(https://media2.giphy.com/media/fxSNjJmi8yN2aKSwmh/giphy.gif?cid=790b7611b43003bfe4a4668b33d1d8bf4d60d27c6fffb553&rid=giphy.gif&ct=g);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center; }
+  background-color: #ada2ff; }
 
 .cover {
   width: 100%;
