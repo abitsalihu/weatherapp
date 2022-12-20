@@ -8,7 +8,8 @@
 
 html,
 body {
-  height: 100%; }
+  height: 100%;
+  font-size: 62.5%; }
 
 body {
   line-height: 1.5;
@@ -40,3 +41,74 @@ h6 {
 #root,
 #__next {
   isolation: isolate; }
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lightblue;
+  background-image: url(https://media2.giphy.com/media/fxSNjJmi8yN2aKSwmh/giphy.gif?cid=790b7611b43003bfe4a4668b33d1d8bf4d60d27c6fffb553&rid=giphy.gif&ct=g);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center; }
+
+.cover {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: rgba(37, 30, 29, 0.2); }
+
+.weather {
+  min-width: 300px;
+  height: 550px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.17);
+  backdrop-filter: blur(10.5px);
+  -webkit-backdrop-filter: blur(10.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  font-family: sans-serif;
+  color: #ffff;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 2s ease; }
+  .weather__icon {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .weather__icon > img {
+      height: 100%; }
+  .weather__city {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 3.5rem; }
+  .weather__temp {
+    width: 100%;
+    height: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 2rem;
+    padding: 0px 20px; }
+    .weather__temp-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      margin-top: 20px;
+      border-bottom: 0.5px solid #ffffff; }
+      .weather__temp-box--title {
+        margin-right: auto;
+        align-self: baseline; }
+      .weather__temp-box--sun {
+        font-size: 1.75rem; }

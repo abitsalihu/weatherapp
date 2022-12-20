@@ -11,6 +11,7 @@
 html,
 body {
   height: 100%;
+  font-size: 62.5%;
 }
 
 body {
@@ -47,4 +48,107 @@ h6 {
 #root,
 #__next {
   isolation: isolate;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lightblue;
+
+  background-image: url(https://media2.giphy.com/media/fxSNjJmi8yN2aKSwmh/giphy.gif?cid=790b7611b43003bfe4a4668b33d1d8bf4d60d27c6fffb553&rid=giphy.gif&ct=g);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+
+  background-color: hsla(10, 12, 13, 0.2);
+}
+
+.weather {
+  min-width: 300px;
+  height: 550px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.17);
+  backdrop-filter: blur(10.5px);
+  -webkit-backdrop-filter: blur(10.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  font-family: sans-serif;
+  color: #ffff;
+  font-weight: 700;
+
+  opacity: 0;
+  transition: opacity 2s ease;
+
+  &__icon {
+    width: 100%;
+    height: 15%;
+    // border: 1px solid blue;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > img {
+      //   width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__city {
+    width: 100%;
+    height: 10%;
+
+    // border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    font-size: 3.5rem;
+  }
+
+  &__temp {
+    width: 100%;
+    height: 75%;
+    // border: 1px solid yellow;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    font-size: 2rem;
+    padding: 0px 20px;
+
+    &-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      //   border: 1px solid red;
+      width: 100%;
+      //   padding: 0px 20px;
+      margin-top: 20px;
+      border-bottom: 0.5px solid #ffffff;
+      &--title {
+        margin-right: auto;
+        align-self: baseline;
+      }
+
+      &--sun {
+        font-size: 1.75rem;
+      }
+    }
+  }
 }
