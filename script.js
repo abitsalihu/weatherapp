@@ -1,131 +1,120 @@
 "use strict";
 
-console.log("Hello world");
-
 const weatherCon = document.querySelector(".weather");
 
-const currentHour = new Date().getHours();
-console.log(currentHour);
-const createWeather = function (obj, snrs, sns) {
-  const html = `
-    <div class="weather__icon">
-        <img src="http://openweathermap.org/img/w/${
-          obj.weather[0].icon
-        }.png" alt="" />
-    </div>
-    <div class="weather__city">${obj.name}</div>
-    <div class="weather__temp">
-    <div class="weather__temp-box">
-        <span class="weather__temp-box--title">Current Temp:</span>${Math.round(
-          obj.main.temp - 273.15
-        )}<span
-        >&#8451;</span
-        >
-    </div>
-        <div class="weather__temp-box">
-        <span class="weather__temp-box--title">Max Temp:</span>${Math.round(
-          obj.main.temp_max - 273.15
-        )}<span
-        >&#8451;</span
-        >
-    </div>
-    <div class="weather__temp-box">
-        <span class="weather__temp-box--title">Min Temp:</span>${Math.round(
-          obj.main.temp_min - 273.15
-        )}<span
-        >&#8451;</span
-        >
-    </div>
+const body = document.querySelector("body");
 
-    <div class="weather__temp-box">
-        <span class="weather__temp-box--title">Sunrise:</span><span class="weather__temp-box--sun">${snrs}</span>
-    </div>
-    <div class="weather__temp-box">
-        <span class="weather__temp-box--title">Sunset:</span><span class="weather__temp-box--sun">${sns}</span>
-    </div>
-    </div> 
+let currentHour = new Date().getHours();
+
+console.log(currentHour);
+
+// currentHour = 8;
+
+const weekdays = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  ,
+];
+
+let time = `${
+  weekdays[new Date().getDay()]
+} ${new Date().getHours()}:${new Date().getMinutes()}`;
+
+console.log(time);
+
+if (currentHour >= 6 && currentHour < 16) {
+  body.style.background = `#71BAFE`;
+} else {
+  body.style.background = `#222222`;
+}
+
+console.log(currentHour);
+const createWeather = function (fobj, sobj, time) {
+  const html = `
+    <div class="weather__left">
+        <div class="weather__left__icon">
+          <svg class="weather__left__icon--fill">
+            <use xlink:href="/sprite.svg#icon-cloud1"></use>
+          </svg>
+        </div>
+        <div class="weather__left__degree">${Math.round(
+          fobj.main.temp - 273.15
+        )}<span class="weather__left__degree-cicon">&#8451</span>  
+        </div>
+        <div class="weather__left__line"></div>
+        <div class="weather__left__phwinfo">
+          <div class="weather__left__phwinfo--box">Cloudiness: <span>${
+            fobj.clouds.all
+          }</span>%</div>
+          <div class="weather__left__phwinfo--box">Humidity: <span>${
+            fobj.main.humidity
+          }</span>%</div>
+          <div class="weather__left__phwinfo--box">Wind: <span>${String(
+            (fobj.wind.speed * 3600) / 1000
+          ).slice(0, 3)}</span>km/h</div>
+        </div>
+      </div>
+      <div class="weather__right">
+        <div class="weather__right__name">${
+          sobj.addresses[0].address.localName
+        }, ${sobj.addresses[0].address.country}</div>
+        <div class="weather__right__date">${time}</div>
+        <div class="weather__right__description">${fobj.weather[0].main}</div>
+      </div>
   `;
 
   weatherCon.insertAdjacentHTML("beforeend", html);
 };
+
 const getWeather = async function () {
-  navigator.geolocation.getCurrentPosition(
-    async function (pos) {
-      const [lat, lon] = [pos.coords.latitude, pos.coords.longitude];
+  try {
+    navigator.geolocation.getCurrentPosition(
+      async function (pos) {
+        const [lat, lon] = [pos.coords.latitude, pos.coords.longitude];
 
-      const weather =
-        await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=558f9e6b44092bec16ddae9ddb857fbe
+        const weather =
+          await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=558f9e6b44092bec16ddae9ddb857fbe
 
-`);
-      const weatherJSON = await weather.json();
+        `);
+        const weatherJSON = await weather.json();
 
-      console.log(weatherJSON);
+        console.log(weatherJSON);
 
-      let [unixSunrise, unixSunset] = [
-        weatherJSON.sys.sunrise,
-        weatherJSON.sys.sunset,
-      ];
+        // let [unixSunrise, unixSunset] = [
+        //   weatherJSON.sys.sunrise,
+        //   weatherJSON.sys.sunset,
+        // ];
 
-      let sunriseDate = new Date(unixSunrise * 1000);
-      let sunsetDate = new Date(unixSunset * 1000);
+        // let sunriseDate = new Date(unixSunrise * 1000);
+        // let sunsetDate = new Date(unixSunset * 1000);
 
-      console.log(sunriseDate, sunsetDate);
+        // getAddress(lat, lon);
 
-      console.log(String(sunriseDate.getSeconds()).length);
+        const locationAPI = await fetch(
+          `https://api.tomtom.com/search/2/reverseGeocode/${lat},${lon}.json?key=bGDpK4GFAJsRIaBIjq5dqo4KjN7eJEPw&radius=100
+`
+        );
 
-      const check =
-        String(sunriseDate.getSeconds()).length === 2
-          ? sunriseDate.getSeconds()
-          : "0" + sunriseDate.getSeconds();
+        const location = await locationAPI.json();
+        console.log(location);
 
-      console.log(check);
+        console.log(location.addresses[0].address.freeformAddress);
 
-      const sunrise = `${
-        String(sunriseDate.getDate()).length === 2
-          ? sunriseDate.getDate()
-          : "0" + sunriseDate.getDate()
-      }/${sunriseDate.getFullYear()} - ${
-        String(sunriseDate.getHours()).length === 2
-          ? sunriseDate.getHours()
-          : "0" + sunriseDate.getHours()
-      }:${
-        String(sunriseDate.getMinutes()).length === 2
-          ? sunriseDate.getMinutes()
-          : "0" + sunriseDate.getMinutes()
-      }:${
-        String(sunriseDate.getSeconds()).length === 2
-          ? sunriseDate.getSeconds()
-          : "0" + sunriseDate.getSeconds()
-      }`;
+        createWeather(weatherJSON, location, time);
+      },
 
-      const sunset = `${
-        String(sunsetDate.getDate()).length === 2
-          ? sunsetDate.getDate()
-          : "0" + sunsetDate.getDate()
-      }/${sunsetDate.getFullYear()} - ${
-        String(sunsetDate.getHours()).length === 2
-          ? sunsetDate.getHours()
-          : "0" + sunsetDate.getHours()
-      }:${
-        String(sunsetDate.getMinutes()).length === 2
-          ? sunsetDate.getMinutes()
-          : "0" + sunsetDate.getMinutes()
-      }:${
-        String(sunsetDate.getSeconds()).length === 2
-          ? sunsetDate.getSeconds()
-          : "0" + sunsetDate.getSeconds()
-      }`;
-
-      console.log(sunrise, sunset);
-
-      createWeather(weatherJSON, sunrise, sunset);
-
-      weatherCon.style.opacity = "1";
-    },
-    function () {
-      alert("Could not get your location");
-    }
-  );
+      function () {
+        alert("Could not get your location");
+      }
+    );
+  } catch (err) {
+    console.log(`Error happened --- ${err.message}`);
+  }
 };
 
 getWeather();

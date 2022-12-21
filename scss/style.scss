@@ -51,16 +51,25 @@ h6 {
 }
 
 body {
+  position: relative;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  background-color: #ada2ff;
-  background-color: #71bafe;
 
-  //   background-image: url(https://media2.giphy.com/media/fxSNjJmi8yN2aKSwmh/giphy.gif?cid=790b7611b43003bfe4a4668b33d1d8bf4d60d27c6fffb553&rid=giphy.gif&ct=g);
-  //   background-size: cover;
-  //   background-repeat: no-repeat;
-  //   background-position: center;
+  // background-color: #222222;
+  background-color: none;
+  transition: background-color 1s ease;
+}
+
+.moon {
+  margin-top: 30px;
+
+  &__icon {
+    fill: rgb(173, 170, 170);
+    width: 200px;
+    height: 200px;
+  }
 }
 
 .cover {
@@ -68,7 +77,33 @@ body {
   height: 100%;
   position: absolute;
 
-  background-color: hsla(10, 12, 13, 0.2);
+  // background-color: hsla(10, 12, 13, 0.2);
+}
+
+.cloud {
+  position: absolute;
+  // width: 100px;
+  // border: 1px solid red;
+  left: 80px;
+  bottom: 30px;
+
+  &__icon {
+    width: 350px;
+    height: 350px;
+    fill: rgb(173, 170, 170);
+  }
+
+  &__icon-s {
+    width: 275px;
+    height: 275px;
+    // fill: red;
+  }
+}
+
+.scloud {
+  right: 90px;
+  bottom: 150px;
+  left: auto;
 }
 
 .weather {
@@ -79,7 +114,7 @@ body {
   justify-content: space-between;
 
   background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.17);
+  box-shadow: 0 8px 32px 0 rgba(13, 14, 32, 0.17);
   backdrop-filter: blur(10.5px);
   -webkit-backdrop-filter: blur(10.5px);
   border-radius: 10px;
@@ -88,7 +123,8 @@ body {
   font-family: sans-serif;
   color: #ffff;
   font-weight: 700;
-  padding: 30px 20px;
+  padding: 50px 25px;
+  margin-top: 80px;
 
   &__left {
     // height: 100%;
@@ -141,7 +177,7 @@ body {
       justify-content: space-between;
       font-size: 1.75rem;
       font-weight: 200;
-      color: rgb(240, 238, 238);
+      color: rgb(255, 255, 255);
 
       &--box:nth-of-type(2) {
         // border: 1px solid red;
@@ -164,11 +200,11 @@ body {
     &__name {
       // border: 1px solid red;
       font-weight: 500;
-      font-size: 2.75rem;
+      font-size: 2.5rem;
     }
 
     &__date {
-      margin: 7.5px 0px;
+      margin: 15px 0px;
     }
   }
 }
