@@ -53,8 +53,8 @@ h6 {
 body {
   position: relative;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  // flex-direction: column;
+  justify-content: center;
   align-items: center;
 
   // background-color: #222222;
@@ -62,69 +62,82 @@ body {
   transition: background-color 1s ease;
 }
 
-.moon {
-  margin-top: 30px;
-
-  &__icon {
-    fill: rgb(173, 170, 170);
-    width: 200px;
-    height: 200px;
-  }
-}
-
-.cover {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-
-  // background-color: hsla(10, 12, 13, 0.2);
-}
-
-.cloud {
-  position: absolute;
-  // width: 100px;
-  // border: 1px solid red;
-  left: 80px;
-  bottom: 30px;
-
-  &__icon {
-    width: 350px;
-    height: 350px;
-    fill: rgb(173, 170, 170);
+.spinner {
+  width: 125px;
+  height: 125px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 1s ease;
+  &__main {
+    height: 55px;
+    width: 55px;
+    border: 2px solid #f5f5f5;
+    border-radius: 50%;
+    clip-path: polygon(0% 0%, 0% 100%, 50% 100%, 50% 50%, 100% 50%, 100% 0%);
+    animation: spinner 1s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
-  &__icon-s {
-    width: 275px;
-    height: 275px;
-    // fill: red;
+  &__inner {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    border: 1.5px solid #f5f5f5;
+    border-radius: 50%;
+    clip-path: polygon(0% 0%, 0% 100%, 50% 100%, 50% 50%, 100% 50%, 100% 0%);
+    animation: rspinner 1s ease infinite;
   }
-}
-
-.scloud {
-  right: 90px;
-  bottom: 150px;
-  left: auto;
 }
 
 .weather {
+  // background-color: red;
+  position: relative;
   // height: 180px;
   // width: 800px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  transform: translateY(20px);
 
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(13, 14, 32, 0.17);
-  backdrop-filter: blur(10.5px);
-  -webkit-backdrop-filter: blur(10.5px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-
-  font-family: sans-serif;
-  color: #ffff;
-  font-weight: 700;
-  padding: 50px 25px;
   margin-top: 80px;
+  display: none;
+  animation: displayWeather 1s ease forwards;
+
+  &__moon {
+    position: absolute;
+    // border: 1px solid red;
+    top: -200px;
+    display: none;
+    opacity: 0;
+    animation: displayMoon 1s ease forwards 1s;
+
+    &--icon {
+      fill: rgb(205, 205, 205);
+    }
+  }
+
+  &__cover {
+    border: 1px solid red;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(13, 14, 32, 0.17);
+    backdrop-filter: blur(20.5px);
+    -webkit-backdrop-filter: blur(10.5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
+    font-family: sans-serif;
+    color: #ffff;
+    font-weight: 700;
+    padding: 50px 25px;
+
+    z-index: 10;
+  }
 
   &__left {
     // height: 100%;
@@ -133,6 +146,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: -2;
 
     &__icon {
       height: 100%;
@@ -206,5 +220,118 @@ body {
     &__date {
       margin: 15px 0px;
     }
+  }
+}
+
+.cloud {
+  position: absolute;
+  // width: 100px;
+  // border: 1px solid red;
+  left: -125px;
+  bottom: -105px;
+  z-index: 9;
+  opacity: 0;
+  animation: leftSVG 1s ease forwards 1.2s;
+
+  &__icon {
+    width: 200px;
+    height: 200px;
+    fill: #f5f5f5;
+  }
+
+  &__sicon {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.cloud:nth-of-type(2) {
+  right: -50px;
+  top: -50px;
+
+  left: auto;
+  bottom: auto;
+  z-index: 15;
+
+  animation: rightSVG 1s ease forwards 1.4s;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  // 50% {
+  //   transform: rotate(180deg);
+  // }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rspinner {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes displayWeather {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes leftSVG {
+  0% {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+
+  75% {
+    opacity: 1;
+    transform: translateX(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes rightSVG {
+  0% {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+
+  75% {
+    opacity: 1;
+    transform: translateX(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes displayMoon {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  75% {
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
   }
 }
