@@ -47,7 +47,7 @@ const createCloud = function (kind, cls) {
   const html = `
     <div class="cloud">
       <svg class="cloud__${cls}">
-        <use xlink:href="/sprite.svg#icon-${kind}"></use>
+        <use xlink:href="img/sprite.svg#icon-${kind}"></use>
       </svg>
     </div>
   `;
@@ -60,7 +60,7 @@ const createWeather = function (fobj, sobj, time, icon) {
     <div class="weather__left">
         <div class="weather__left__icon">
           <svg class="weather__left__icon--fill">
-            <use xlink:href="/sprite.svg#icon-${icon}"></use>
+            <use xlink:href="img/sprite.svg#icon-${icon}"></use>
           </svg>
         </div>
         <div class="weather__left__degree">${Math.round(
