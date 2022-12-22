@@ -118,6 +118,21 @@ body {
     }
   }
 
+  &__sun {
+    position: absolute;
+    // border: 1px solid red;
+    top: -200px;
+    display: none;
+    opacity: 0;
+    animation: displayMoon 1s ease forwards 1s;
+
+    &--icon {
+      width: 100px;
+      height: 100px;
+      fill: #ddc828;
+    }
+  }
+
   &__cover {
     border: 1px solid red;
     display: flex;
@@ -259,6 +274,8 @@ body {
   animation: rightSVG 1s ease forwards 1.4s;
 }
 
+//? ANIMATIONS
+
 @keyframes spinner {
   0% {
     transform: rotate(0deg);
@@ -286,6 +303,11 @@ body {
   0% {
     opacity: 0;
     transform: translateY(20px);
+  }
+
+  75% {
+    opacity: 1;
+    transform: translateY(-5px);
   }
   100% {
     opacity: 1;
@@ -336,5 +358,34 @@ body {
   100% {
     opacity: 1;
     transform: translateY(0px);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  body {
+  }
+  .weather {
+    text-align: center;
+    &__cover {
+      flex-direction: column-reverse;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &__left {
+      flex-direction: column;
+
+      &__line {
+        height: 2px;
+        width: 100%;
+        margin: 10px 0px;
+      }
+    }
+    &__right {
+      align-items: center;
+      justify-content: center;
+      // border: 1px solid red;
+      margin-left: 0;
+    }
   }
 }

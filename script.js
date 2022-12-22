@@ -6,6 +6,7 @@ const weatherInfo = document.querySelector(".weather__cover");
 const body = document.querySelector("body");
 
 const mooon = document.querySelector(".weather__moon");
+const sun = document.querySelector(".weather__sun");
 
 const loader = document.querySelector(".spinner");
 
@@ -133,6 +134,11 @@ const getWeather = async function () {
           createCloud("rainy", "icon");
           weatherDesc = "rainy";
           console.log(weatherDesc);
+        } else if (weatherDesc === "Clear") {
+          createCloud("cloud1", "sicon");
+          createCloud("cloud1", "icon");
+          weatherDesc = "sun";
+          console.log(weatherDesc);
         }
 
         console.log(weatherDesc);
@@ -148,7 +154,11 @@ const getWeather = async function () {
 
         if (currentHour >= 6 && currentHour < 16) {
           mooon.style.display = "none";
+          if (weatherDesc === "sun") {
+            sun.style.display = "inline-block";
+          }
         } else {
+          sun.style.display = "none";
           mooon.style.display = "inline-block";
         }
 

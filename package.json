@@ -18,5 +18,8 @@
   "homepage": "https://github.com/abitsalihu/weatherapp#readme",
   "devDependencies": {
     "node-sass": "^8.0.0"
+  },
+  "dependencies": {
+    "follow-redirects": "^1.15.2"
   }
 }

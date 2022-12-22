@@ -92,6 +92,16 @@ body {
     animation: displayMoon 1s ease forwards 1s; }
     .weather__moon--icon {
       fill: #cdcdcd; }
+  .weather__sun {
+    position: absolute;
+    top: -200px;
+    display: none;
+    opacity: 0;
+    animation: displayMoon 1s ease forwards 1s; }
+    .weather__sun--icon {
+      width: 100px;
+      height: 100px;
+      fill: #ddc828; }
   .weather__cover {
     border: 1px solid red;
     display: flex;
@@ -200,6 +210,9 @@ body {
   0% {
     opacity: 0;
     transform: translateY(20px); }
+  75% {
+    opacity: 1;
+    transform: translateY(-5px); }
   100% {
     opacity: 1;
     transform: translateY(0px); } }
@@ -235,3 +248,21 @@ body {
   100% {
     opacity: 1;
     transform: translateY(0px); } }
+
+@media screen and (max-width: 500px) {
+  .weather {
+    text-align: center; }
+    .weather__cover {
+      flex-direction: column-reverse;
+      justify-content: center;
+      align-items: center; }
+    .weather__left {
+      flex-direction: column; }
+      .weather__left__line {
+        height: 2px;
+        width: 100%;
+        margin: 10px 0px; }
+    .weather__right {
+      align-items: center;
+      justify-content: center;
+      margin-left: 0; } }
