@@ -16,7 +16,7 @@ let currentHour = new Date().getHours();
 
 console.log(currentHour);
 
-currentHour = 8;
+// currentHour = 8;
 
 const weekdays = [
   "Sunday",
