@@ -10,6 +10,8 @@ const sun = document.querySelector(".weather__sun");
 
 const loader = document.querySelector(".spinner");
 
+const countryInfoBtn = document.querySelector(".weather__country__btn");
+
 let currentHour = new Date().getHours();
 
 // currentHour = 16;
@@ -52,7 +54,7 @@ const createCloud = function (kind, cls) {
     </div>
   `;
 
-  weatherCon.insertAdjacentHTML("afterbegin", html);
+  weatherInfo.insertAdjacentHTML("afterbegin", html);
 };
 
 const createWeather = function (fobj, sobj, time, icon) {
@@ -114,7 +116,8 @@ const getWeather = async function () {
         if (
           weatherDesc === "Clouds" ||
           weatherDesc === "Drizzle" ||
-          weatherDesc === "Mist"
+          weatherDesc === "Mist" ||
+          weatherDesc === "Fog"
         ) {
           createCloud("cloud1", "sicon");
           createCloud("cloud1", "icon");
@@ -166,7 +169,25 @@ const getWeather = async function () {
         weatherCon.style.display = "flex";
         weatherCon.style.opacity = "1";
 
+        countryInfoBtn.innerHTML = location.addresses[0].address.country;
+
         createWeather(weatherJSON, location, time, weatherDesc);
+
+        const countryAPI = await fetch(
+          `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=5211b93a8bc44403b82b75cff10ad799`
+        );
+
+        // const countryAPI = await fetch(
+        //   `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}`
+        // );
+        const country = await countryAPI.json();
+
+        const realCountry = await fetch(
+          `https://restcountries.com/v2/name/${country.features[0].properties.country}`
+        );
+
+        const realRealCountry = await realCountry.json();
+        console.log(realRealCountry);
       },
 
       function () {

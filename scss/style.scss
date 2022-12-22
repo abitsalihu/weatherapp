@@ -10,6 +10,7 @@
 
 html,
 body {
+  overflow-x: hidden;
   height: 100%;
   font-size: 62.5%;
 }
@@ -51,15 +52,12 @@ h6 {
 }
 
 body {
-  overflow: hidden;
   position: relative;
   display: flex;
-  // flex-direction: column;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  // background-color: #222222;
-  background-color: none;
   transition: background-color 1s ease;
 }
 
@@ -94,22 +92,26 @@ body {
 }
 
 .weather {
+  // border: 1px solid red;
   // background-color: red;
   position: relative;
   // height: 180px;
   // width: 800px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  // gap: 100px;
+  justify-content: space-evenly;
   transform: translateY(20px);
 
-  margin-top: 80px;
+  // margin-bottom: 80px;
   display: none;
   animation: displayWeather 1s ease forwards;
 
   &__moon {
-    position: absolute;
+    // position: absolute;
     // border: 1px solid red;
-    top: -200px;
+    // top: -200px;
     display: none;
     opacity: 0;
     animation: displayMoon 1s ease forwards 1s;
@@ -122,9 +124,9 @@ body {
   }
 
   &__sun {
-    position: absolute;
+    // position: absolute;
     // border: 1px solid red;
-    top: -200px;
+    // top: -200px;
     display: none;
     opacity: 0;
     animation: displayMoon 1s ease forwards 1s;
@@ -137,7 +139,7 @@ body {
   }
 
   &__cover {
-    border: 1px solid red;
+    // border: 1px solid red;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -153,6 +155,7 @@ body {
     color: #ffff;
     font-weight: 700;
     padding: 50px 25px;
+    margin-bottom: 90px;
 
     z-index: 10;
   }
@@ -239,6 +242,27 @@ body {
       margin: 15px 0px;
     }
   }
+
+  &__country {
+    // margin-top: 50px;
+    color: #f5f5f5;
+    font-family: sans-serif;
+    font-size: 2rem;
+    font-weight: 200;
+    margin-bottom: 50px;
+
+    &__btn {
+      margin-left: 0px;
+      border-radius: 5px;
+      border: none;
+      padding: 0px 10px;
+      // background: none;
+      // border-bottom: 1px solid #f5f5f5;s
+      outline: none;
+      // background: red;
+      cursor: pointer;
+    }
+  }
 }
 
 .cloud {
@@ -247,7 +271,7 @@ body {
   // border: 1px solid red;
   left: -125px;
   bottom: -105px;
-  z-index: 9;
+  z-index: -1;
   opacity: 0;
   animation: leftSVG 1s ease forwards 1.2s;
   // border: 1px solid red;
@@ -364,7 +388,10 @@ body {
   }
 }
 
-@media screen and (max-width: 500px) {
+// @media screen and (max-width: 885px) {
+// }
+
+@media screen and (max-width: 800px) {
   .weather {
     &__sun {
       top: -155px;
@@ -399,14 +426,6 @@ body {
       justify-content: center;
       // border: 1px solid red;
       margin-left: 0;
-    }
-  }
-}
-
-@media screen and (max-width: 365px) {
-  .cloud {
-    &__sicon {
-      display: none;
     }
   }
 }
