@@ -51,6 +51,7 @@ h6 {
 }
 
 body {
+  overflow: hidden;
   position: relative;
   display: flex;
   // flex-direction: column;
@@ -114,6 +115,8 @@ body {
     animation: displayMoon 1s ease forwards 1s;
 
     &--icon {
+      // width: 100px;
+      // height: 100px;
       fill: rgb(205, 205, 205);
     }
   }
@@ -364,8 +367,17 @@ body {
 @media screen and (max-width: 500px) {
   .weather {
     &__sun {
-      top: -175px;
+      top: -155px;
     }
+
+    &__moon {
+      top: -135px;
+      &__icon {
+        width: 130px;
+        height: 130px;
+      }
+    }
+
     text-align: center;
     &__cover {
       flex-direction: column-reverse;
@@ -387,6 +399,14 @@ body {
       justify-content: center;
       // border: 1px solid red;
       margin-left: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 365px) {
+  .cloud {
+    &__sicon {
+      display: none;
     }
   }
 }

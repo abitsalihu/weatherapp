@@ -43,6 +43,7 @@ h6 {
   isolation: isolate; }
 
 body {
+  overflow: hidden;
   position: relative;
   display: flex;
   justify-content: center;
@@ -253,7 +254,12 @@ body {
   .weather {
     text-align: center; }
     .weather__sun {
-      top: -175px; }
+      top: -155px; }
+    .weather__moon {
+      top: -135px; }
+      .weather__moon__icon {
+        width: 130px;
+        height: 130px; }
     .weather__cover {
       flex-direction: column-reverse;
       justify-content: center;
@@ -268,3 +274,7 @@ body {
       align-items: center;
       justify-content: center;
       margin-left: 0; } }
+
+@media screen and (max-width: 365px) {
+  .cloud__sicon {
+    display: none; } }
