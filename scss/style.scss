@@ -232,16 +232,19 @@ body {
   z-index: 9;
   opacity: 0;
   animation: leftSVG 1s ease forwards 1.2s;
+  // border: 1px solid red;
 
   &__icon {
     width: 200px;
     height: 200px;
     fill: #f5f5f5;
+    // opacity: 1;
   }
 
   &__sicon {
     width: 100px;
     height: 100px;
+    fill: #f5f5f5;
   }
 }
 

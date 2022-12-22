@@ -41,12 +41,25 @@ if (currentHour >= 6 && currentHour < 16) {
 }
 
 console.log(currentHour);
-const createWeather = function (fobj, sobj, time) {
+
+const createCloud = function (kind, cls) {
+  const html = `
+    <div class="cloud">
+      <svg class="cloud__${cls}">
+        <use xlink:href="/sprite.svg#icon-${kind}"></use>
+      </svg>
+    </div>
+  `;
+
+  weatherCon.insertAdjacentHTML("afterbegin", html);
+};
+
+const createWeather = function (fobj, sobj, time, icon) {
   const html = `
     <div class="weather__left">
         <div class="weather__left__icon">
           <svg class="weather__left__icon--fill">
-            <use xlink:href="/sprite.svg#icon-cloud1"></use>
+            <use xlink:href="/sprite.svg#icon-${icon}"></use>
           </svg>
         </div>
         <div class="weather__left__degree">${Math.round(
@@ -92,16 +105,37 @@ const getWeather = async function () {
 
         console.log(weatherJSON);
 
-        // let [unixSunrise, unixSunset] = [
-        //   weatherJSON.sys.sunrise,
-        //   weatherJSON.sys.sunset,
-        // ];
+        let weatherDesc = weatherJSON.weather[0].main;
+        console.log(weatherDesc);
+        // weatherDesc = "Windy";
+        // console.log(`${weatherDesc.toLowerCase()}`);
 
-        // let sunriseDate = new Date(unixSunrise * 1000);
-        // let sunsetDate = new Date(unixSunset * 1000);
+        if (
+          weatherDesc === "Clouds" ||
+          weatherDesc === "Drizzle" ||
+          weatherDesc === "Mist"
+        ) {
+          createCloud("cloud1", "sicon");
+          createCloud("cloud1", "icon");
+          weatherDesc = `cloud1`;
+        } else if (weatherDesc === "Windy") {
+          createCloud("windy", "sicon");
+          createCloud("windy", "icon");
+          weatherDesc = "windy";
+          console.log(weatherDesc);
+        } else if (weatherDesc === "Snow") {
+          createCloud("snowy", "sicon");
+          createCloud("snowy", "icon");
+          weatherDesc = "snowy";
+          console.log(weatherDesc);
+        } else if (weatherDesc === "Rain") {
+          createCloud("rainy", "sicon");
+          createCloud("rainy", "icon");
+          weatherDesc = "rainy";
+          console.log(weatherDesc);
+        }
 
-        // getAddress(lat, lon);
-
+        console.log(weatherDesc);
         const locationAPI = await fetch(
           `https://api.tomtom.com/search/2/reverseGeocode/${lat},${lon}.json?key=bGDpK4GFAJsRIaBIjq5dqo4KjN7eJEPw&radius=100
 `
@@ -122,7 +156,7 @@ const getWeather = async function () {
         weatherCon.style.display = "flex";
         weatherCon.style.opacity = "1";
 
-        createWeather(weatherJSON, location, time);
+        createWeather(weatherJSON, location, time, weatherDesc);
       },
 
       function () {
