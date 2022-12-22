@@ -252,6 +252,8 @@ body {
 @media screen and (max-width: 500px) {
   .weather {
     text-align: center; }
+    .weather__sun {
+      top: -175px; }
     .weather__cover {
       flex-direction: column-reverse;
       justify-content: center;
