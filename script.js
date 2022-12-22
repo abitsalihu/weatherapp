@@ -1,10 +1,17 @@
 "use strict";
 
 const weatherCon = document.querySelector(".weather");
+const weatherInfo = document.querySelector(".weather__cover");
 
 const body = document.querySelector("body");
 
+const mooon = document.querySelector(".weather__moon");
+
+const loader = document.querySelector(".spinner");
+
 let currentHour = new Date().getHours();
+
+// currentHour = 16;
 
 console.log(currentHour);
 
@@ -68,7 +75,7 @@ const createWeather = function (fobj, sobj, time) {
       </div>
   `;
 
-  weatherCon.insertAdjacentHTML("beforeend", html);
+  weatherInfo.insertAdjacentHTML("beforeend", html);
 };
 
 const getWeather = async function () {
@@ -104,6 +111,16 @@ const getWeather = async function () {
         console.log(location);
 
         console.log(location.addresses[0].address.freeformAddress);
+
+        if (currentHour >= 6 && currentHour < 16) {
+          mooon.style.display = "none";
+        } else {
+          mooon.style.display = "inline-block";
+        }
+
+        loader.style.display = "none";
+        weatherCon.style.display = "flex";
+        weatherCon.style.opacity = "1";
 
         createWeather(weatherJSON, location, time);
       },
