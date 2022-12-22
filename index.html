@@ -8,29 +8,41 @@
     <title>WeatherApp</title>
   </head>
 
-  <!-- <div class="cover"></div> -->
-
-  <div class="cloud">
-    <svg class="cloud__icon cloud__icon-f">
-      <use xlink:href="/sprite.svg#icon-cloud1"></use>
-    </svg>
-  </div>
-
-  <div class="moon">
-    <svg class="moon__icon">
-      <use xlink:href="/sprite.svg#icon-moon"></use>
-    </svg>
-  </div>
-
-  <div class="cloud scloud">
-    <svg class="cloud__icon cloud__icon-s">
-      <use xlink:href="/sprite.svg#icon-cloud1"></use>
-    </svg>
-  </div>
-
   <body>
+    <div class="spinner">
+      <div class="spinner__main"></div>
+      <div class="spinner__inner"></div>
+    </div>
     <div class="weather">
-      <!-- <div class="weather__left">
+      <div class="weather__moon">
+        <svg class="weather__moon--icon">
+          <use
+            xlink:href="/sprite.svg#icon-moon
+      "
+          ></use>
+        </svg>
+      </div>
+
+      <div class="cloud">
+        <svg class="cloud__icon cloud__sicon">
+          <use
+            xlink:href="/sprite.svg#icon-cloud1
+      "
+          ></use>
+        </svg>
+      </div>
+
+      <div class="cloud">
+        <svg class="cloud__icon">
+          <use
+            xlink:href="/sprite.svg#icon-cloud1
+      "
+          ></use>
+        </svg>
+      </div>
+
+      <div class="weather__cover">
+        <!-- <div class="weather__left">
         <div class="weather__left__icon">
           <svg class="weather__left__icon--fill">
             <use xlink:href="/sprite.svg#icon-cloud1"></use>
@@ -50,6 +62,7 @@
         <div class="weather__right__date">Wednesday 14:00</div>
         <div class="weather__right__description">Cloudy</div>
       </div> -->
+      </div>
     </div>
 
     <script src="script.js"></script>
