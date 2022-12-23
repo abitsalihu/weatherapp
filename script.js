@@ -112,7 +112,7 @@ const createCountry = function (obj) {
         <div class="country__info--desc">Currency: <span class="country__info--desc-returned">${
           obj[0].currencies[0].code
         }(${obj[0].currencies[0].symbol})</span></div>
-        <div class="country__info--desc">Calling Code: <span class="country__info--desc-returned">${
+        <div class="country__info--desc">Calling Code: <span class="country__info--desc-returned">+${
           obj[0].callingCodes[0]
         }</span></div>
         <div class="country__info--desc">Timezone: <span class="country__info--desc-returned">${
@@ -161,10 +161,18 @@ const getWeather = async function () {
           createCloud("rainy", "sicon");
           createCloud("rainy", "icon");
           weatherDesc = "rainy";
-        } else if (weatherDesc === "Clear") {
+        } else if (
+          weatherDesc === "Clear" &&
+          currentHour >= 6 &&
+          currentHour < 16
+        ) {
           createCloud("cloud1", "sicon");
           createCloud("cloud1", "icon");
           weatherDesc = "sun";
+        } else {
+          createCloud("cloud1", "sicon");
+          createCloud("cloud1", "icon");
+          weatherDesc = "cloud1";
         }
 
         const countryNameAPI = await fetch(
@@ -196,8 +204,6 @@ const getWeather = async function () {
         countryInfoBtn.innerHTML = country.features[0].properties.country;
 
         createWeather(weatherJSON, country, time, weatherDesc);
-
-        console.log(realCountry);
 
         return realCountry;
       },
