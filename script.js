@@ -1,24 +1,19 @@
 "use strict";
 
+const body = document.querySelector("body");
+
 const weatherCon = document.querySelector(".weather");
 const weatherInfo = document.querySelector(".weather__cover");
-
-const body = document.querySelector("body");
 
 const mooon = document.querySelector(".weather__moon");
 const sun = document.querySelector(".weather__sun");
 
 const loader = document.querySelector(".spinner");
 
+const countryInfoCon = document.querySelector(".weather__country");
 const countryInfoBtn = document.querySelector(".weather__country__btn");
 
 let currentHour = new Date().getHours();
-
-// currentHour = 16;
-
-console.log(currentHour);
-
-// currentHour = 8;
 
 const weekdays = [
   "Sunday",
@@ -35,15 +30,12 @@ let time = `${
   weekdays[new Date().getDay()]
 } ${new Date().getHours()}:${new Date().getMinutes()}`;
 
-console.log(time);
-
 if (currentHour >= 6 && currentHour < 16) {
   body.style.background = `#71BAFE`;
 } else {
   body.style.background = `#222222`;
+  body.style.background = `#263159`;
 }
-
-console.log(currentHour);
 
 const createCloud = function (kind, cls) {
   const html = `
@@ -84,8 +76,8 @@ const createWeather = function (fobj, sobj, time, icon) {
       </div>
       <div class="weather__right">
         <div class="weather__right__name">${
-          sobj.addresses[0].address.localName
-        }, ${sobj.addresses[0].address.country}</div>
+          sobj.features[0].properties.city
+        }, ${sobj.features[0].properties.country}</div>
         <div class="weather__right__date">${time}</div>
         <div class="weather__right__description">${fobj.weather[0].main}</div>
       </div>
@@ -94,6 +86,25 @@ const createWeather = function (fobj, sobj, time, icon) {
   weatherInfo.insertAdjacentHTML("beforeend", html);
 };
 
+const createCountry = function (obj) {
+  const html = `
+   <div class="country">
+      <div class="country__img">
+        <img src="${obj[0].flags.png}" alt="" />
+      </div>
+      <div class="country__info">
+        <div class="country__info--desc">Country: <span class="country__info--desc-returned">${obj[0].name} </span></div>
+        <div class="country__info--desc">Capital City: <span class="country__info--desc-returned">${obj[0].capital}</span></div>
+        <div class="country__info--desc">Population: <span class="country__info--desc-returned">${obj[0].population}</span></div>
+        <div class="country__info--desc">Currency: <span class="country__info--desc-returned">${obj[0].currencies[0].code}</span></div>
+      </div>
+    </div>
+  `;
+
+  body.insertAdjacentHTML("beforeend", html);
+};
+
+let realCountry;
 const getWeather = async function () {
   try {
     navigator.geolocation.getCurrentPosition(
@@ -106,12 +117,7 @@ const getWeather = async function () {
         `);
         const weatherJSON = await weather.json();
 
-        console.log(weatherJSON);
-
         let weatherDesc = weatherJSON.weather[0].main;
-        console.log(weatherDesc);
-        // weatherDesc = "Windy";
-        // console.log(`${weatherDesc.toLowerCase()}`);
 
         if (
           weatherDesc === "Clouds" ||
@@ -126,34 +132,33 @@ const getWeather = async function () {
           createCloud("windy", "sicon");
           createCloud("windy", "icon");
           weatherDesc = "windy";
-          console.log(weatherDesc);
         } else if (weatherDesc === "Snow") {
           createCloud("snowy", "sicon");
           createCloud("snowy", "icon");
           weatherDesc = "snowy";
-          console.log(weatherDesc);
         } else if (weatherDesc === "Rain") {
           createCloud("rainy", "sicon");
           createCloud("rainy", "icon");
           weatherDesc = "rainy";
-          console.log(weatherDesc);
         } else if (weatherDesc === "Clear") {
           createCloud("cloud1", "sicon");
           createCloud("cloud1", "icon");
           weatherDesc = "sun";
-          console.log(weatherDesc);
         }
 
         console.log(weatherDesc);
-        const locationAPI = await fetch(
-          `https://api.tomtom.com/search/2/reverseGeocode/${lat},${lon}.json?key=bGDpK4GFAJsRIaBIjq5dqo4KjN7eJEPw&radius=100
-`
+
+        const countryNameAPI = await fetch(
+          `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=5211b93a8bc44403b82b75cff10ad799`
         );
 
-        const location = await locationAPI.json();
-        console.log(location);
+        const country = await countryNameAPI.json();
 
-        console.log(location.addresses[0].address.freeformAddress);
+        const realCountryAPI = await fetch(
+          `https://restcountries.com/v2/name/${country.features[0].properties.country}`
+        );
+
+        realCountry = await realCountryAPI.json();
 
         if (currentHour >= 6 && currentHour < 16) {
           mooon.style.display = "none";
@@ -169,25 +174,11 @@ const getWeather = async function () {
         weatherCon.style.display = "flex";
         weatherCon.style.opacity = "1";
 
-        countryInfoBtn.innerHTML = location.addresses[0].address.country;
+        countryInfoBtn.innerHTML = country.features[0].properties.country;
 
-        createWeather(weatherJSON, location, time, weatherDesc);
+        createWeather(weatherJSON, country, time, weatherDesc);
 
-        const countryAPI = await fetch(
-          `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=5211b93a8bc44403b82b75cff10ad799`
-        );
-
-        // const countryAPI = await fetch(
-        //   `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}`
-        // );
-        const country = await countryAPI.json();
-
-        const realCountry = await fetch(
-          `https://restcountries.com/v2/name/${country.features[0].properties.country}`
-        );
-
-        const realRealCountry = await realCountry.json();
-        console.log(realRealCountry);
+        return realCountry;
       },
 
       function () {
@@ -200,3 +191,9 @@ const getWeather = async function () {
 };
 
 getWeather();
+
+countryInfoBtn.addEventListener("click", () => {
+  createCountry(realCountry);
+  countryInfoCon.style.animation = `removeObj 1s ease forwards`;
+  weatherInfo.style.animation = `removeMargin 1s ease forwards`;
+});
