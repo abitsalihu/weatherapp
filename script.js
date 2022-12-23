@@ -26,9 +26,15 @@ const weekdays = [
   ,
 ];
 
-let time = `${
-  weekdays[new Date().getDay()]
-} ${new Date().getHours()}:${new Date().getMinutes()}`;
+let time = `${weekdays[new Date().getDay()]} ${
+  String(new Date().getHours()).length === 2
+    ? new Date().getHours()
+    : "0" + String(new Date().getHours())
+}:${
+  String(new Date().getMinutes()).length === 2
+    ? new Date().getMinutes()
+    : "0" + String(new Date().getMinutes())
+}`;
 
 if (currentHour >= 6 && currentHour < 16) {
   body.style.background = `#71BAFE`;
@@ -93,10 +99,25 @@ const createCountry = function (obj) {
         <img src="${obj[0].flags.png}" alt="" />
       </div>
       <div class="country__info">
-        <div class="country__info--desc">Country: <span class="country__info--desc-returned">${obj[0].name} </span></div>
-        <div class="country__info--desc">Capital City: <span class="country__info--desc-returned">${obj[0].capital}</span></div>
-        <div class="country__info--desc">Population: <span class="country__info--desc-returned">${obj[0].population}</span></div>
-        <div class="country__info--desc">Currency: <span class="country__info--desc-returned">${obj[0].currencies[0].code}</span></div>
+        <div class="country__info--desc">Country: <span class="country__info--desc-returned">${
+          obj[0].name
+        } </span></div>
+        <div class="country__info--desc">Capital City: <span class="country__info--desc-returned">${
+          obj[0].capital
+        }</span></div>
+         <div class="country__info--desc">Region: <span class="country__info--desc-returned">${
+           obj[0].region
+         }</span></div>
+        <div class="country__info--desc">Population: <span class="country__info--desc-returned">${obj[0].population.toLocaleString()}</span></div>
+        <div class="country__info--desc">Currency: <span class="country__info--desc-returned">${
+          obj[0].currencies[0].code
+        }(${obj[0].currencies[0].symbol})</span></div>
+        <div class="country__info--desc">Calling Code: <span class="country__info--desc-returned">${
+          obj[0].callingCodes[0]
+        }</span></div>
+        <div class="country__info--desc">Timezone: <span class="country__info--desc-returned">${
+          obj[0].timezones[0]
+        }</span></div>
       </div>
     </div>
   `;
@@ -146,8 +167,6 @@ const getWeather = async function () {
           weatherDesc = "sun";
         }
 
-        console.log(weatherDesc);
-
         const countryNameAPI = await fetch(
           `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=5211b93a8bc44403b82b75cff10ad799`
         );
@@ -178,11 +197,15 @@ const getWeather = async function () {
 
         createWeather(weatherJSON, country, time, weatherDesc);
 
+        console.log(realCountry);
+
         return realCountry;
       },
 
       function () {
-        alert("Could not get your location");
+        alert(
+          "Please allow the app to see your location so it can show the data. :)"
+        );
       }
     );
   } catch (err) {
